@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+<!-- 	<parent>
+		<groupId>com.influxdb</groupId>
+    	<artifactId>influxdb-client</artifactId>
+    	<version>6.4.0-SNAPSHOT</version>
+  	</parent> -->
+  	
+  	<modelVersion>4.0.0</modelVersion>
+  	<groupId>com.influxdb</groupId>
+  	<artifactId>influxdb-client-java</artifactId>
+  	<packaging>jar</packaging>
+  
+  	<name>The Java InfluxDB 2.3 Client</name>
+  	<description>
+    	The reference Java client that allows query, write
+    	and management (bucket, organization, users) for the InfluxDB 2.x.
+	</description>  
+	
+	<dependencies>
+		<dependency>
+			<groupId>com.influxdb</groupId>
+        	<artifactId>influxdb-client-core</artifactId>
+        </dependency>
+	</dependencies>      
+</project>

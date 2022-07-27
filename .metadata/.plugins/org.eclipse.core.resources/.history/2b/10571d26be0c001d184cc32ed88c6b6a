@@ -1,0 +1,5 @@
+package com.influx.influx_client;
+
+public class InfluxDBConnectionClass {
+
+}
