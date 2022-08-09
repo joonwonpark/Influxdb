@@ -134,4 +134,41 @@ public class ConnectCheck {
 	}
 ```
 
-### 3. 
+### 3. Query Test
+```java
+package com.influx.influx_client;
+
+import com.influxdb.client.InfluxDBClient;
+import com.influxdb.client.InfluxDBClientFactory;
+import com.influxdb.client.UsersApi;
+
+public class QueryCheck {
+    private static char[] token = "자기 토큰 입력".toCharArray();
+    private static String serverURL = "url입력";
+    private static String org = "조직입력";
+    private static String bucket = "bucket 입력";
+
+    public static void main(final String[] args) {
+
+        InfluxDBClient influxDBClient = InfluxDBClientFactory.create(serverURL, token, org, bucket);
+        String flux = "from(bucket: \"test-bucket\")\r\n" + 
+        		"  |> range(start: 0)\r\n" + 
+        		"  |> filter(fn: (r) => r[\"_measurement\"] == \"temperature\")\r\n" + 
+        		"  |> filter(fn: (r) => r[\"_field\"] == \"value\")\r\n" + 
+        		"  |> filter(fn: (r) => r[\"location\"] == \"north\")\r\n" + 
+        		"  |> yield(name: \"mean\")";
+
+        QueryApi queryApi = influxDBClient.getQueryApi();
+
+        List<FluxTable> tables = queryApi.query(flux);
+        for (FluxTable fluxTable : tables) {
+            List<FluxRecord> records = fluxTable.getRecords();
+            for (FluxRecord fluxRecord : records) {
+                System.out.println(fluxRecord.getTime() + ": " + fluxRecord.getValueByKey("_value"));
+            }
+        }
+
+        influxDBClient.close();
+    }
+}
+```
